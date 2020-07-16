@@ -5,9 +5,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.PowerManager;
 import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.WindowManager;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -38,8 +36,10 @@ public class Main2Activity extends AppCompatActivity {
         newWakeLock = manager.newWakeLock(PowerManager.ACQUIRE_CAUSES_WAKEUP |
                 PowerManager.SCREEN_BRIGHT_WAKE_LOCK, "bright");
         newWakeLock.acquire();//点亮屏幕(常亮)*/
-//        setContentView(R.layout.activity_main2);
-        View inflater=LayoutInflater.from(this).inflate(R.layout.activity_main2,null);
+        setContentView(R.layout.activity_main2);
+
+//        锁屏下无法展示
+       /* View inflater=LayoutInflater.from(this).inflate(R.layout.activity_main2,null);
         ViewGroup view=inflater.findViewById(R.id.con);
         view.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -47,7 +47,7 @@ public class Main2Activity extends AppCompatActivity {
                 finish();
             }
         });
-        addWindows(inflater);
+        addWindows(inflater);*/
     }
 
   /*  @Override

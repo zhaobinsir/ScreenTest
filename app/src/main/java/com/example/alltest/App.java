@@ -4,7 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
+import android.os.Handler;
 import android.os.PowerManager;
 import android.util.Log;
 
@@ -17,12 +17,17 @@ public class App extends Application {
     public static final String TAG="MYAPP";
 
     private ScreenStatusController mScreenStatusController = null;
-    private IntentFilter mScreenStatusFilter = null;
+    private Handler mHandlder;
 
     @Override
     public void onCreate() {
         super.onCreate();
         Log.d(TAG, "onCreate: ");
+        init();
+    }
+
+    private void init() {
+        mHandlder=new Handler();
         mScreenStatusController=new ScreenStatusController(this);
         //注册广播监听锁屏状态
         mScreenStatusController.setScreenStatusListener(new ScreenStatusListener() {
@@ -34,14 +39,21 @@ public class App extends Application {
             @Override
             public void onScreenOff() {//锁屏时点亮屏幕
                 Log.e(TAG, "onScreenOff: ");
-                PowerManager manager = (PowerManager) getSystemService(Context.POWER_SERVICE);
-                @SuppressLint("InvalidWakeLockTag")
-                PowerManager.WakeLock newWakeLock = manager.newWakeLock(PowerManager.ACQUIRE_CAUSES_WAKEUP |
-                        PowerManager.SCREEN_BRIGHT_WAKE_LOCK, "bright");
-                newWakeLock.acquire();//点亮屏幕(常亮)
-                Intent intent=new Intent(getApplicationContext(),Main2Activity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(intent);
+                mHandlder.removeCallbacksAndMessages(null);//防止用户快速开关屏幕
+                mHandlder.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        Log.d(TAG, "run: 唤醒");
+                        PowerManager manager = (PowerManager) getSystemService(Context.POWER_SERVICE);
+                        @SuppressLint("InvalidWakeLockTag")
+                        PowerManager.WakeLock newWakeLock = manager.newWakeLock(PowerManager.ACQUIRE_CAUSES_WAKEUP |
+                                PowerManager.SCREEN_BRIGHT_WAKE_LOCK, "bright");
+                        newWakeLock.acquire();//点亮屏幕(常亮)
+                        Intent intent=new Intent(getApplicationContext(), Main2Activity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
+                    }
+                }, 2000);
             }
 
             @Override
@@ -50,7 +62,6 @@ public class App extends Application {
             }
         });
         mScreenStatusController.startListen();
-
     }
 
 }
