@@ -24,6 +24,7 @@ public class App extends Application {
         super.onCreate();
         Log.d(TAG, "onCreate: ");
         mScreenStatusController=new ScreenStatusController(this);
+        //注册广播监听锁屏状态
         mScreenStatusController.setScreenStatusListener(new ScreenStatusListener() {
             @Override
             public void onScreenOn() {

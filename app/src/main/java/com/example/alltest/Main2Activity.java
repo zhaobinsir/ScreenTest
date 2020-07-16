@@ -19,6 +19,7 @@ public class Main2Activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+         //用于锁屏显示
            getWindow().addFlags(
                 WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED|               //这个在锁屏状态下， 限制程序锁屏前在前台
                         WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON
@@ -61,7 +62,7 @@ public class Main2Activity extends AppCompatActivity {
             return true;
         return super.onKeyDown(keyCode, event);
     }*/
-
+   //添加窗口
   private void addWindows(View view){
 //      WindowManager wm = (WindowManager)getApplicationContext().getSystemService(WINDOW_SERVICE);
       WindowManager wm = getWindow().getWindowManager();
