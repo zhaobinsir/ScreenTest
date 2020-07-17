@@ -1,11 +1,8 @@
 package com.example.alltest;
 
-import android.annotation.SuppressLint;
 import android.app.Application;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
-import android.os.PowerManager;
 import android.util.Log;
 
 /**
@@ -34,12 +31,31 @@ public class App extends Application {
             @Override
             public void onScreenOn() {
                 Log.e(TAG, "onScreenOn: ");
+                mHandlder.removeCallbacksAndMessages(null);//防止用户快速开关屏幕
+                mHandlder.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        Log.d(TAG, "run: 唤醒");
+                        Intent intent=new Intent(getApplicationContext(), Main2Activity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
+                    }
+                }, 2000);
             }
-
             @Override
             public void onScreenOff() {//锁屏时点亮屏幕
                 Log.e(TAG, "onScreenOff: ");
-                mHandlder.removeCallbacksAndMessages(null);//防止用户快速开关屏幕
+            }
+
+            @Override
+            public void userPresent() {
+                Log.e(TAG, "userPresent: ");
+            }
+        });
+        mScreenStatusController.startListen();
+    }
+
+    /* mHandlder.removeCallbacksAndMessages(null);//防止用户快速开关屏幕
                 mHandlder.postDelayed(new Runnable() {
                     @Override
                     public void run() {
@@ -53,15 +69,6 @@ public class App extends Application {
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(intent);
                     }
-                }, 2000);
-            }
-
-            @Override
-            public void userPresent() {
-                Log.e(TAG, "userPresent: ");
-            }
-        });
-        mScreenStatusController.startListen();
-    }
+                }, 2000);*/
 
 }

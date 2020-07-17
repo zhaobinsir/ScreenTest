@@ -3,10 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.alltest">
 
+<!--    锁屏显示权限-->
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+<!--    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>-->
+<!--    点亮屏幕需要的权限-->
+<!--    <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />-->
+<!--     显示系统弹出所需要的权限-->
+<!--    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>-->
 
 
     <application

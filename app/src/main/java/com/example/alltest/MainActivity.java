@@ -1,7 +1,5 @@
 package com.example.alltest;
 
-import android.app.KeyguardManager;
-import android.content.Context;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
@@ -89,18 +87,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         fun1();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        light();
-    }
-    @DebugLog
-    private boolean light(){
-        KeyguardManager km =
-                (KeyguardManager) getSystemService(Context.KEYGUARD_SERVICE);
-       return km.inKeyguardRestrictedInputMode();
     }
 
     @DebugLog

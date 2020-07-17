@@ -6,7 +6,7 @@
 
 熄屏广告:参考 ScreenStatusController
 
-逻辑--》app初始化：监听屏幕状态--》锁屏打开Activity，Activity添加window（为了屏蔽home按键），==>具体逻辑处理
+逻辑--》app初始化：监听屏幕状态--》锁屏打开Activity，（可选）Activity添加window（为了屏蔽home按键），==>具体逻辑处理
 
 android 10.0 描述：
 

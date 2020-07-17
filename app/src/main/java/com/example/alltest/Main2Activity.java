@@ -1,5 +1,7 @@
 package com.example.alltest;
 
+import android.app.KeyguardManager;
+import android.content.Context;
 import android.graphics.PixelFormat;
 import android.os.Build;
 import android.os.Bundle;
@@ -13,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 public class Main2Activity extends AppCompatActivity {
 
     PowerManager.WakeLock newWakeLock;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +51,14 @@ public class Main2Activity extends AppCompatActivity {
             }
         });
         addWindows(inflater);*/
+
+       /* ScheduledThreadPoolExecutor testThread  =new ScheduledThreadPoolExecutor(1);
+        testThread.scheduleAtFixedRate(new Runnable() {
+            @Override
+            public void run() {
+                Log.d("Main2Activity", light()+"");
+            }
+        },1, 1,TimeUnit.SECONDS);*/
     }
 
   /*  @Override
@@ -63,7 +74,20 @@ public class Main2Activity extends AppCompatActivity {
         return super.onKeyDown(keyCode, event);
     }*/
    //添加窗口
-  private void addWindows(View view){
+
+    private boolean light(){
+        KeyguardManager km =
+                (KeyguardManager) getSystemService(Context.KEYGUARD_SERVICE);
+        return km.inKeyguardRestrictedInputMode();
+    }
+
+
+    @Override
+    public void onBackPressed() {
+       moveTaskToBack(true);
+    }
+
+    private void addWindows(View view){
 //      WindowManager wm = (WindowManager)getApplicationContext().getSystemService(WINDOW_SERVICE);
       WindowManager wm = getWindow().getWindowManager();
       WindowManager.LayoutParams params = getWindow().getAttributes();
@@ -86,6 +110,8 @@ public class Main2Activity extends AppCompatActivity {
       params.y = 0;
       wm.addView(view, params);
   }
+
+
 
     @Override
     protected void onDestroy() {
