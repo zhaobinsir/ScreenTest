@@ -2,21 +2,28 @@ package com.example.alltest;
 
 import android.app.KeyguardManager;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.PixelFormat;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.PowerManager;
+import android.provider.Settings;
 import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+
+import hugo.weaving.DebugLog;
 
 public class Main2Activity extends AppCompatActivity {
 
     PowerManager.WakeLock newWakeLock;
 
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,15 +58,38 @@ public class Main2Activity extends AppCompatActivity {
             }
         });
         addWindows(inflater);*/
+       //开启白名单设置
+       /* if (!isIgnoringBatteryOptimizations()) {
+            requestIgnoreBatteryOptimizations();
+        }*/
 
-       /* ScheduledThreadPoolExecutor testThread  =new ScheduledThreadPoolExecutor(1);
-        testThread.scheduleAtFixedRate(new Runnable() {
-            @Override
-            public void run() {
-                Log.d("Main2Activity", light()+"");
-            }
-        },1, 1,TimeUnit.SECONDS);*/
+
     }
+
+    @DebugLog
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    private boolean isIgnoringBatteryOptimizations() {//是否在白名单内
+        boolean isIgnoring = false;
+        PowerManager powerManager = (PowerManager) getSystemService(Context.POWER_SERVICE);
+        if (powerManager != null) {
+            isIgnoring = powerManager.isIgnoringBatteryOptimizations(getPackageName());
+        }
+        return isIgnoring;
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    public void requestIgnoreBatteryOptimizations() {//打开白名单
+        try {
+            Intent intent = new Intent(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS);
+            intent.setData(Uri.parse("package:" + getPackageName()));
+            startActivity(intent);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
 
   /*  @Override
     protected void onResume() {

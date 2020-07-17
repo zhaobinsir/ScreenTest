@@ -16,11 +16,18 @@ public class App extends Application {
     private ScreenStatusController mScreenStatusController = null;
     private Handler mHandlder;
 
+    private static App mApp;
+
     @Override
     public void onCreate() {
         super.onCreate();
         Log.d(TAG, "onCreate: ");
+        mApp=this;
         init();
+    }
+
+    public static App getInstance(){
+        return mApp;
     }
 
     private void init() {
