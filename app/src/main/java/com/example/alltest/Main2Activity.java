@@ -9,6 +9,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.PowerManager;
 import android.provider.Settings;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
@@ -27,9 +28,9 @@ public class Main2Activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-         //用于锁屏显示
-           getWindow().addFlags(
-                WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED|               //这个在锁屏状态下， 限制程序锁屏前在前台
+        //用于锁屏显示
+        getWindow().addFlags(
+                WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED |               //这个在锁屏状态下， 限制程序锁屏前在前台
                         WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON
                         | WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD
                         | WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
@@ -58,11 +59,20 @@ public class Main2Activity extends AppCompatActivity {
             }
         });
         addWindows(inflater);*/
-       //开启白名单设置
+        //开启白名单设置
        /* if (!isIgnoringBatteryOptimizations()) {
             requestIgnoreBatteryOptimizations();
         }*/
 
+        Log.d(com.example.alltest.App.TAG, "onCreate: "
+                + "huawei " + PhoneType.isHuawei() + "\n" +
+                "xiaomi " + PhoneType.isXiaomi() + "\n" +
+                "oppo " + PhoneType.isOPPO() + "\n" +
+                "vivo " + PhoneType.isVIVO() + "\n" +
+                "sansung " + PhoneType.isSamsung() + "\n" +
+                "chuizi " + PhoneType.isSmartisan() + "\n" +
+                "leshi " + PhoneType.isLeTV() + "\n"
+        );
 
     }
 
@@ -103,9 +113,9 @@ public class Main2Activity extends AppCompatActivity {
             return true;
         return super.onKeyDown(keyCode, event);
     }*/
-   //添加窗口
+    //添加窗口
 
-    private boolean light(){
+    private boolean light() {
         KeyguardManager km =
                 (KeyguardManager) getSystemService(Context.KEYGUARD_SERVICE);
         return km.inKeyguardRestrictedInputMode();
@@ -114,33 +124,32 @@ public class Main2Activity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-       moveTaskToBack(true);
+        moveTaskToBack(true);
     }
 
-    private void addWindows(View view){
+    private void addWindows(View view) {
 //      WindowManager wm = (WindowManager)getApplicationContext().getSystemService(WINDOW_SERVICE);
-      WindowManager wm = getWindow().getWindowManager();
-      WindowManager.LayoutParams params = getWindow().getAttributes();
+        WindowManager wm = getWindow().getWindowManager();
+        WindowManager.LayoutParams params = getWindow().getAttributes();
 
-      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-          params.type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;
-      }else {
-          params.type = WindowManager.LayoutParams.TYPE_SYSTEM_ALERT |
-                  WindowManager.LayoutParams.TYPE_SYSTEM_OVERLAY;
-      }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            params.type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;
+        } else {
+            params.type = WindowManager.LayoutParams.TYPE_SYSTEM_ALERT |
+                    WindowManager.LayoutParams.TYPE_SYSTEM_OVERLAY;
+        }
 
-      params.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;
+        params.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;
 
-      params.width = WindowManager.LayoutParams.FILL_PARENT;
-      params.height = WindowManager.LayoutParams.FILL_PARENT;
-      params.format = PixelFormat.TRANSPARENT;
+        params.width = WindowManager.LayoutParams.FILL_PARENT;
+        params.height = WindowManager.LayoutParams.FILL_PARENT;
+        params.format = PixelFormat.TRANSPARENT;
 
-      params.gravity= Gravity.LEFT|Gravity.TOP;
-      params.x = 0;
-      params.y = 0;
-      wm.addView(view, params);
-  }
-
+        params.gravity = Gravity.LEFT | Gravity.TOP;
+        params.x = 0;
+        params.y = 0;
+        wm.addView(view, params);
+    }
 
 
     @Override
