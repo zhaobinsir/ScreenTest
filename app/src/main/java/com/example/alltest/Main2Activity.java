@@ -73,7 +73,9 @@ public class Main2Activity extends AppCompatActivity {
                 "chuizi " + PhoneType.isSmartisan() + "\n" +
                 "leshi " + PhoneType.isLeTV() + "\n"
         );
+        if (PhoneType.isOPPO()) {
 
+        }
     }
 
     @DebugLog

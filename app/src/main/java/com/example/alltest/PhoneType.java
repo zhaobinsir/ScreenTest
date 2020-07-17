@@ -57,7 +57,7 @@ public class PhoneType {
     }
 
     //跳转小米安全中心的自启动管理页面：
-    private void goXiaomiSetting() {
+    public static void goXiaomiSetting() {
         showActivity("com.miui.securitycenter",
                 "com.miui.permcenter.autostart.AutoStartManagementActivity");
     }
@@ -68,7 +68,7 @@ public class PhoneType {
     }
 
     //跳转 OPPO 手机管家： 操作步骤：权限隐私 -> 自启动管理 -> 允许应用自启动
-    private void goOPPOSetting() {
+    public static void goOPPOSetting() {
         try {
             showActivity("com.coloros.phonemanager");
         } catch (Exception e1) {
@@ -89,7 +89,7 @@ public class PhoneType {
     }
 
     //    跳转 VIVO 手机管家： 操作步骤：权限管理 -> 自启动 -> 允许应用自启动
-    private void goVIVOSetting() {
+    public static void goVIVOSetting() {
         showActivity("com.iqoo.secure");
     }
 
@@ -99,7 +99,7 @@ public class PhoneType {
     }
 
     //跳转魅族手机管家： 操作步骤：权限管理 -> 后台管理 -> 点击应用 -> 允许后台运行
-    private void goMeizuSetting() {
+    public static void goMeizuSetting() {
         showActivity("com.meizu.safe");
     }
 
@@ -109,7 +109,7 @@ public class PhoneType {
     }
 
     //    跳转三星智能管理器：  操作步骤：自动运行应用程序 -> 打开应用开关 -> 电池管理 -> 未监视的应用程序 -> 添加应用
-    private void goSamsungSetting() {
+    public static void goSamsungSetting() {
         try {
             showActivity("com.samsung.android.sm_cn");
         } catch (Exception e) {
@@ -123,7 +123,7 @@ public class PhoneType {
     }
 
     //    跳转乐视手机管家： 操作步骤：自启动管理 -> 允许应用自启动
-    private void goLetvSetting() {
+    public static void goLetvSetting() {
         showActivity("com.letv.android.letvsafe",
                 "com.letv.android.letvsafe.AutobootManageActivity");
     }
@@ -134,7 +134,7 @@ public class PhoneType {
     }
 
     //    跳转手机管理： 操作步骤：权限管理 -> 自启动权限管理 -> 点击应用 -> 允许被系统启动
-    private void goSmartisanSetting() {
+    public static void goSmartisanSetting() {
         showActivity("com.smartisanos.security");
     }
 
